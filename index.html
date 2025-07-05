@@ -1,14 +1,213 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GD Demon List | Главная</title>
-    <link rel="stylesheet" href="assets/style/main.css">
-    <link rel="stylesheet" href="assets/style/aredal.css">
-</head><</head>
+    <title>ПОРТФОЛИО | Охуенный Сайт</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
+    <!-- Preloader (чтобы было по-модному) -->
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
 
+    <!-- Крутая шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo" data-text="ПОРТФОЛИО">ПОРТФОЛИО</div>
+            <nav class="nav">
+                <a href="#about" class="nav__link">Обо мне</a>
+                <a href="#projects" class="nav__link">Проекты</a>
+                <a href="#skills" class="nav__link">Навыки</a>
+                <a href="#contacts" class="nav__link">Контакты</a>
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
 
+    <!-- Герой-секция (3D эффекты + параллакс) -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title" data-aos="fade-up">Привет, я <span class="highlight">Твой Ник</span></h1>
+                <p class="hero__subtitle" data-aos="fade-up" data-aos-delay="200">Фронтенд-разработчик и любитель шаурмы</p>
+                <div class="hero__buttons" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#projects" class="btn btn-primary">Мои работы</a>
+                    <a href="#contacts" class="btn btn-outline">Написать мне</a>
+                </div>
+            </div>
+            <div class="hero__image" data-aos="fade-left">
+                <div class="glow"></div>
+                <img src="https://placehold.co/600x600" alt="Твоя фотка" class="parallax" data-speed="0.1">
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне (с анимацией текста) -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section__title" data-aos="fade-up">Обо <span class="highlight">мне</span></h2>
+            <div class="about__grid">
+                <div class="about__image" data-aos="fade-right">
+                    <img src="https://placehold.co/400x500" alt="Твоя морда">
+                </div>
+                <div class="about__content" data-aos="fade-left">
+                    <h3>Кто я?</h3>
+                    <p>Я — фронтенд-разработчик с опытом в создании интерактивных и адаптивных веб-приложений. Люблю чистый код и ненавижу IE11.</p>
+                    <div class="about__info">
+                        <div class="info__item">
+                            <span>Имя:</span>
+                            <span>Твой Ник</span>
+                        </div>
+                        <div class="info__item">
+                            <span>Email:</span>
+                            <span>ты@example.com</span>
+                        </div>
+                        <div class="info__item">
+                            <span>Опыт:</span>
+                            <span>2+ года</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Скачать резюме</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты (слайдер + 3D карточки) -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section__title" data-aos="fade-up">Мои <span class="highlight">проекты</span></h2>
+            <div class="projects__slider">
+                <div class="slider__item">
+                    <div class="project__card">
+                        <div class="card__image">
+                            <img src="https://placehold.co/600x400" alt="Проект 1">
+                        </div>
+                        <div class="card__content">
+                            <h3>Лендинг для шаурмы</h3>
+                            <p>Сайт для шаурмы с анимациями и формой заказа.</p>
+                            <div class="card__tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JS</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Посмотреть</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider__item">
+                    <div class="project__card">
+                        <div class="card__image">
+                            <img src="https://placehold.co/600x400" alt="Проект 2">
+                        </div>
+                        <div class="card__content">
+                            <h3>Тетрис на JS</h3>
+                            <p>Классический тетрис с системой рекордов.</p>
+                            <div class="card__tags">
+                                <span>JavaScript</span>
+                                <span>Canvas</span>
+                            </div>
+                            <a href="#" class="btn btn-outline">Посмотреть</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Навыки (анимированные прогресс-бары) -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2 class="section__title" data-aos="fade-up">Мои <span class="highlight">скиллы</span></h2>
+            <div class="skills__grid">
+                <div class="skill__item" data-aos="fade-up">
+                    <div class="skill__info">
+                        <span>HTML/CSS</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="skill__bar">
+                        <div class="bar__progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill__item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill__info">
+                        <span>JavaScript</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="skill__bar">
+                        <div class="bar__progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill__item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill__info">
+                        <span>React</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="skill__bar">
+                        <div class="bar__progress" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты (форма + соцсети) -->
+    <section id="contacts" class="section contacts">
+        <div class="container">
+            <h2 class="section__title" data-aos="fade-up">Мои <span class="highlight">контакты</span></h2>
+            <div class="contacts__grid">
+                <div class="contacts__info" data-aos="fade-right">
+                    <h3>Напиши мне</h3>
+                    <p>Если хочешь сотрудничать или просто потроллить.</p>
+                    <div class="info__item">
+                        <i class="fas fa-envelope"></i>
+                        <span>ты@example.com</span>
+                    </div>
+                    <div class="info__item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (XXX) XXX-XX-XX</span>
+                    </div>
+                    <div class="social__links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                <form class="contacts__form" data-aos="fade-left">
+                    <input type="text" placeholder="Твоё имя" required>
+                    <input type="email" placeholder="Твой email" required>
+                    <textarea placeholder="Твоё сообщение" required></textarea>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер (с анимацией волны) -->
+    <footer class="footer">
+        <div class="wave"></div>
+        <div class="container">
+            <div class="footer__content">
+                <div class="logo">ПОРТФОЛИО</div>
+                <p>© 2024 Все права защищены (или нет)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
 </body>
-
+</html>

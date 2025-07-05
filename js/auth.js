@@ -1,163 +1,228 @@
-class Auth {
+class AuthSystem {
   constructor() {
-    this.token = localStorage.getItem('token');
-    this.userId = null;
-    
+    this.token = localStorage.getItem('gd-demonlist-token');
+    this.user = null;
+    this.init();
+  }
+
+  async init() {
     if (this.token) {
-      this.decodeToken();
+      await this.validateToken();
     }
-    
-    this.initForms();
+    this.setupEventListeners();
     this.updateAuthUI();
   }
-  
-  decodeToken() {
+
+  async validateToken() {
     try {
-      const payload = JSON.parse(atob(this.token.split('.')[1]));
-      this.userId = payload.id;
-    } catch (e) {
-      this.logout();
-    }
-  }
-  
-  async login(username, password) {
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+      const response = await fetch('/api/auth/validate', {
+        headers: { 'Authorization': `Bearer ${this.token}` }
       });
       
+      if (!response.ok) throw new Error('Invalid token');
+      
+      this.user = await response.json();
+      this.scheduleTokenRefresh();
+    } catch (error) {
+      this.clearSession();
+    }
+  }
+
+  async login(email, password) {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
       const data = await response.json();
-      
-      if (response.ok) {
-        this.token = data.token;
-        localStorage.setItem('token', this.token);
-        this.decodeToken();
-        this.updateAuthUI();
-        return true;
-      } else {
-        throw new Error(data.error || 'Login failed');
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
       }
+
+      this.token = data.token;
+      this.user = data.user;
+      
+      localStorage.setItem('gd-demonlist-token', this.token);
+      this.scheduleTokenRefresh();
+      this.updateAuthUI();
+      
+      return { success: true };
     } catch (error) {
-      console.error('Login error:', error);
-      alert(`Login error: ${error.message}`);
-      return false;
+      return { success: false, message: error.message };
     }
   }
-  
-  async register(username, password) {
+
+  async register(username, email, password) {
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, email, password })
       });
-      
-      if (response.ok) {
-        alert('Registration successful! Please login.');
-        return true;
-      } else {
-        const data = await response.json();
-        throw new Error(data.error || 'Registration failed');
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
       }
+
+      return { success: true };
     } catch (error) {
-      console.error('Registration error:', error);
-      alert(`Registration error: ${error.message}`);
-      return false;
+      return { success: false, message: error.message };
     }
   }
-  
-  logout() {
-    localStorage.removeItem('token');
+
+  async logout() {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${this.token}` }
+      });
+    } finally {
+      this.clearSession();
+    }
+  }
+
+  async requestPasswordReset(email) {
+    // Реализация сброса пароля
+  }
+
+  async verifyEmail(token) {
+    // Подтверждение email
+  }
+
+  clearSession() {
+    localStorage.removeItem('gd-demonlist-token');
     this.token = null;
-    this.userId = null;
+    this.user = null;
+    clearTimeout(this.tokenRefreshTimeout);
     this.updateAuthUI();
   }
-  
+
+  scheduleTokenRefresh() {
+    const jwtData = JSON.parse(atob(this.token.split('.')[1]));
+    const expiresIn = (jwtData.exp * 1000) - Date.now() - 60000; // Обновить за 1 мин до истечения
+    
+    this.tokenRefreshTimeout = setTimeout(() => {
+      this.refreshToken();
+    }, expiresIn);
+  }
+
+  async refreshToken() {
+    try {
+      const response = await fetch('/api/auth/refresh', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${this.token}` }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error('Token refresh failed');
+
+      this.token = data.token;
+      localStorage.setItem('gd-demonlist-token', this.token);
+      this.scheduleTokenRefresh();
+    } catch (error) {
+      this.clearSession();
+    }
+  }
+
+  setupEventListeners() {
+    // Обработчики для всех форм
+    document.querySelectorAll('.auth-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const action = form.dataset.action;
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        
+        let result;
+        
+        switch (action) {
+          case 'login':
+            result = await this.login(
+              formData.get('email'), 
+              formData.get('password')
+            );
+            break;
+          case 'register':
+            result = await this.register(
+              formData.get('username'),
+              formData.get('email'),
+              formData.get('password')
+            );
+            break;
+          // Другие действия...
+        }
+        
+        submitBtn.disabled = false;
+        
+        if (result.success) {
+          if (action === 'login') {
+            window.location.href = '/dashboard';
+          } else {
+            this.showNotification('Success! Please check your email', 'success');
+            form.reset();
+          }
+        } else {
+          this.showError(form, result.message);
+        }
+      });
+    });
+  }
+
   updateAuthUI() {
-    const authElements = document.querySelectorAll('.auth-element');
+    const authElements = document.querySelectorAll('[data-auth-state]');
     
     authElements.forEach(element => {
-      if (this.isAuthenticated()) {
-        element.classList.add('authenticated');
-        element.classList.remove('anonymous');
-      } else {
-        element.classList.add('anonymous');
-        element.classList.remove('authenticated');
-      }
+      const showWhen = element.dataset.authState;
+      const shouldShow = (
+        (showWhen === 'authenticated' && this.isAuthenticated()) ||
+        (showWhen === 'anonymous' && !this.isAuthenticated())
+      );
+      
+      element.style.display = shouldShow ? '' : 'none';
     });
     
-    const usernameDisplays = document.querySelectorAll('.username-display');
     if (this.isAuthenticated()) {
-      // Здесь можно добавить запрос для получения имени пользователя
-      usernameDisplays.forEach(el => el.textContent = 'User');
-    } else {
-      usernameDisplays.forEach(el => el.textContent = '');
-    }
-  }
-  
-  initForms() {
-    // Обработка формы входа
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-      loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-        
-        if (await this.login(username, password)) {
-          window.location.href = 'index.html';
-        }
+      document.querySelectorAll('[data-user-prop]').forEach(element => {
+        const prop = element.dataset.userProp;
+        element.textContent = this.user[prop] || '';
       });
     }
-    
-    // Обработка формы регистрации
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-      registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('regUsername').value;
-        const password = document.getElementById('regPassword').value;
-        const confirm = document.getElementById('regConfirm').value;
-        
-        if (password !== confirm) {
-          alert('Passwords do not match!');
-          return;
-        }
-        
-        if (await this.register(username, password)) {
-          window.location.href = 'auth.html?tab=login';
-        }
-      });
-    }
-    
-    // Обработка выхода
-    const logoutButtons = document.querySelectorAll('.logout-btn');
-    logoutButtons.forEach(button => {
-      button.addEventListener('click', () => this.logout());
-    });
   }
-  
+
   isAuthenticated() {
     return !!this.token;
   }
-  
-  async getAuthHeader() {
-    if (!this.isAuthenticated()) return {};
+
+  getAuthHeader() {
     return { 'Authorization': `Bearer ${this.token}` };
+  }
+
+  showError(form, message) {
+    const errorElement = form.querySelector('.form-error');
+    if (errorElement) {
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      
+      setTimeout(() => {
+        errorElement.style.display = 'none';
+      }, 5000);
+    }
+  }
+
+  showNotification(message, type = 'info') {
+    // Реализация системы уведомлений
   }
 }
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', () => {
-  window.auth = new Auth();
-  
-  // Переключение между вкладками
-  const urlParams = new URLSearchParams(window.location.search);
-  const activeTab = urlParams.get('tab');
-  
-  if (activeTab === 'login' || activeTab === 'register') {
-    document.getElementById(`${activeTab}Tab`).click();
-  }
+  window.auth = new AuthSystem();
 });

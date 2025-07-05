@@ -1,251 +1,255 @@
-/* Основные стили шаблона */
-.aredal-header {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+/* Дополнение к предыдущему CSS (aredal.css) */
+
+/* Дополнительные стили для таблиц */
+.demon-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
-.aredal-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.demon-table th, 
+.player-table th {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: #ff5555;
+.demon-table td, 
+.player-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
 }
 
-.logo p {
-    margin: 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
+.demon-table tr:last-child td {
+  border-bottom: none;
 }
 
-.main-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.demon-table tr:hover {
+  background-color: #f9f9f9;
 }
 
-.main-nav li {
-    margin-left: 1.5rem;
-}
-
-.main-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.main-nav a:hover, .main-nav .active a {
-    color: #ff5555;
-}
-
-.auth-link {
-    background-color: #ff5555;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-.aredal-main {
-    padding: 2rem 0;
-    background-color: #f5f5f5;
-    min-height: calc(100vh - 200px);
-}
-
-.hero {
-    text-align: center;
-    padding: 4rem 0;
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-    color: white;
-    margin-bottom: 2rem;
-}
-
-.hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.cta-buttons {
-    margin-top: 2rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 0 0.5rem;
-    transition: all 0.3s;
-}
-
-.btn-primary {
-    background-color: #ff5555;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #e04a4a;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.features {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-}
-
-.feature-card {
-    flex: 1;
-    padding: 1.5rem;
-    margin: 0 1rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.feature-card h3 {
-    color: #ff5555;
-    margin-bottom: 0.5rem;
-}
-
-.aredal-footer {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 1.5rem 0;
-    text-align: center;
-}
-
-/* Стили для таблиц */
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.list-controls {
-    display: flex;
-    align-items: center;
-}
-
-.search-box input {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    margin-right: 1rem;
-}
-
-.responsive-table {
-    overflow-x: auto;
-}
-
-.demon-table, .player-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.demon-table th, .player-table th {
-    background-color: #2a2a2a;
-    color: white;
-    padding: 1rem;
-    text-align: left;
-}
-
-.demon-table td, .player-table td {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
-}
-
-.demon-link, .player-link {
-    color: #ff5555;
-    text-decoration: none;
-    font-weight: 500;
-}
-
+/* Стили для бейджей сложности */
 .difficulty-badge {
-    display: inline-block;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .difficulty-badge.easy {
-    background-color: #4CAF50;
-    color: white;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .difficulty-badge.medium {
-    background-color: #FFC107;
-    color: #333;
+  background-color: #FFC107;
+  color: #333;
 }
 
 .difficulty-badge.hard {
-    background-color: #FF9800;
-    color: white;
+  background-color: #FF9800;
+  color: white;
 }
 
 .difficulty-badge.insane {
-    background-color: #F44336;
-    color: white;
+  background-color: #F44336;
+  color: white;
 }
 
 .difficulty-badge.extreme {
-    background-color: #9C27B0;
-    color: white;
+  background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+  color: white;
 }
 
+/* Стили для статусов прохождения */
 .status-badge {
-    display: inline-block;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .status-badge.completed {
-    background-color: #4CAF50;
-    color: white;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .status-badge.uncompleted {
-    background-color: #9E9E9E;
-    color: white;
+  background-color: #9E9E9E;
+  color: white;
 }
 
 .status-badge.in-progress {
-    background-color: #2196F3;
-    color: white;
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Прогресс-бар */
+.progress-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 10px;
 }
 
 .progress-bar {
-    width: 100%;
-    height: 10px;
-    background-color: #eee;
-    border-radius: 5px;
-    overflow: hidden;
+  height: 100%;
+  background: linear-gradient(90deg, #ff5555 0%, #ff8a00 100%);
+  border-radius: 20px;
+  transition: width 0.5s ease;
 }
 
-.progress {
-    height: 100%;
-    background-color: #4CAF50;
+/* Модальные окна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #777;
+}
+
+/* Форма авторизации */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form .form-group {
+  margin-bottom: 0;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.auth-form input {
+  width: 100%;
+}
+
+.auth-submit {
+  margin-top: 10px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .demon-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .list-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .list-controls {
+    width: 100%;
+  }
+  
+  .search-box {
+    min-width: 100%;
+  }
+}
+
+/* Анимации */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* Дополнительные утилиты */
+.text-muted {
+  color: #777;
+}
+
+.text-danger {
+  color: #f44336;
+}
+
+.text-success {
+  color: #4CAF50;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e04a4a;
 }

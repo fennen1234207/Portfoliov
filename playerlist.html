@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GD Demon List | Игроки</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/aredal.css">
+</head>
+<body>
+    <header class="aredal-header">
+        <!-- Такой же хедер -->
+    </header>
+
+    <main class="aredal-main">
+        <div class="container">
+            <div class="list-header">
+                <h2>Топ игроков</h2>
+                <div class="list-controls">
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск игроков..." id="playerSearch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="responsive-table">
+                <table class="player-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Игрок</th>
+                            <th>Демонов</th>
+                            <th>Очки</th>
+                            <th>Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody id="playerTableBody">
+                        <!-- Игроки будут загружены здесь -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/playerlist.js"></script>
+</body>
+</html>

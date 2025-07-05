@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GD Demon List | Главная</title>
+    <link rel="stylesheet" href="assets/style/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Geometry Dash Demon List</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" id="homeLink">Главная</a></li>
+                    <li><a href="#" id="demonLink">Демон-лист</a></li>
+                    <li><a href="#" id="playerLink">Игроки</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn">Вход</button>
+                <button id="registerBtn">Регистрация</button>
+            </div>
+        </header>
+
+        <main id="content">
+            <section class="welcome-section">
+                <h2>Добро пожаловать на официальный демон-лист</h2>
+                <p>Здесь собраны самые сложные демоны Geometry Dash</p>
+            </section>
+        </main>
+
+        <div class="modal" id="authModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Вход</h2>
+                <form id="authForm">
+                    <input type="text" id="username" placeholder="Никнейм" required>
+                    <input type="password" id="password" placeholder="Пароль" required>
+                    <button type="submit" id="submitAuth">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

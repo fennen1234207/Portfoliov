@@ -3,54 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GD Demon List | Демон-лист</title>
-    <link rel="stylesheet" href="assets/style/main.css">
-    <link rel="stylesheet" href="assets/style/aredal.css">
+    <title>GD Demon List | Demon Details</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/aredal.css">
 </head>
 <body>
     <header class="aredal-header">
-        <!-- Такой же хедер, как в index.html -->
+        <!-- Общий хедер -->
     </header>
 
     <main class="aredal-main">
         <div class="container">
-            <div class="list-header">
-                <h2>Топ 100 демонов</h2>
-                <div class="list-controls">
-                    <div class="search-box">
-                        <input type="text" placeholder="Поиск демонов..." id="demonSearch">
-                    </div>
-                    <select id="difficultyFilter">
-                        <option value="all">Все сложности</option>
-                        <option value="Easy">Easy Demon</option>
-                        <option value="Medium">Medium Demon</option>
-                        <option value="Hard">Hard Demon</option>
-                        <option value="Insane">Insane Demon</option>
-                        <option value="Extreme">Extreme Demon</option>
-                    </select>
-                </div>
+            <div id="demonDetails">
+                <h2>Loading demon details...</h2>
             </div>
-
-            <div class="responsive-table">
-                <table class="demon-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Название</th>
-                            <th>Сложность</th>
-                            <th>Создатель</th>
-                            <th>Очки</th>
-                            <th>Статус</th>
-                        </tr>
-                    </thead>
-                    <tbody id="demonTableBody">
-                        <!-- Демоны будут загружены здесь -->
-                    </tbody>
-                </table>
+            
+            <div id="demonCompletion" class="completion-section">
+                <h3>Completion Status</h3>
+                <div id="completionForm"></div>
+                <div id="verificationInfo"></div>
             </div>
         </div>
     </main>
 
-    <script src="js/demonlist.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/demon.js"></script>
 </body>
 </html>
